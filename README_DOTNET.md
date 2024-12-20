@@ -25,16 +25,17 @@ dotnet watch
   Microsoft.EntityFrameworkCore.Design
 
 - Core:
-  Microsoft.Extensions.Identity.Stores
+  <!--to authenticate user using JWT Bearer-->
+
+  Microsoft.AspNetCore.Authentication.JwtBearer
 
 - Infrastructure:
+  <!--to be able to derive from IdentityDbContext inside our context.cs-->
   Microsoft.AspNetCore.Identity.EntityFrameworkCore
+  <!--to be able to communicate with SQL server via EF-->
   Microsoft.EntityFrameworkCore.SqlServer
-  StackExchange.Redis
-
-//Microsoft.AspNetCore.Authentication.JwtBearer
-//System.IdentityModel.Tokens.Jwt
-program.cs + services/JwtService.cs
+  <!--to be able to create, serialize and validate JSON web tokens-->
+  System.IdentityModel.Tokens.Jwt
 
 # setup environment:
 
