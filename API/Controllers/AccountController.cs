@@ -187,23 +187,22 @@ namespace Api.Controllers
             if (!result.Succeeded) return BadRequest(result.Errors);
 
             //await _userManager.AddToRoleAsync(userToAdd, SD.PlayerRole);
-            return Ok("registred"); // hadi nahiha
 
-            /*
+
             try
             {
-                if (await SendConfirmEMailAsync(userToAdd))
-                {
-                    return Ok(new JsonResult(new { title = "Account Created", message = "Your account has been created, please confrim your email address" }));
-                }
+                //if (await SendConfirmEMailAsync(userToAdd))
+                //{
+                return Ok(new JsonResult(new { title = "Account Created", message = "Your account has been created, please confrim your email address" }));
+                //}
 
-                return BadRequest("Failed to send email. Please contact admin");
+                //return BadRequest("Failed to send email. Please contact admin");
             }
             catch (Exception)
             {
                 return BadRequest("Failed to send email. Please contact admin");
             }
-            */
+
         }
 
         /*
