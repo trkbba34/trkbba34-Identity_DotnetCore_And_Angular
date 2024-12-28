@@ -1,12 +1,13 @@
-import { Injectable } from '@angular/core';
-import { map, of, ReplaySubject, take } from 'rxjs';
-import { User } from '../../shared/models/account/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { ReplaySubject, map, of, take } from 'rxjs';
 import { Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
+import { User } from '../../shared/models/account/user';
+import { SharedService } from './shared.service';
 import { environment } from '../../../environments/environment.development';
 import { Login } from '../../shared/models/account/login';
 import { Register } from '../../shared/models/account/register';
-import { SharedService } from './shared.service';
 
 @Injectable({
   providedIn: 'root',
@@ -103,7 +104,7 @@ export class AccountService {
     localStorage.removeItem(environment.userKey);
     this.userSource.next(null);
     this.router.navigateByUrl('/');
-    //this.stopRefreshTokenTimer();
+    this.stopRefreshTokenTimer();
   }
 
   register(model: Register) {
@@ -139,13 +140,13 @@ export class AccountService {
 
   forgotUsernameOrPassword(email: string) {
     return this.http.post(
-      `${environment.apiUrl}account/forgot-username-or-password/${email}`,
+      `${environment.appUrl}account/forgot-username-or-password/${email}`,
       {}
     );
   }
 
   resetPassword(model: ResetPassword) {
-    return this.http.put(`${environment.apiUrl}account/reset-password`, model);
+    return this.http.put(`${environment.appUrl}account/reset-password`, model);
   }
   */
 
@@ -178,17 +179,17 @@ export class AccountService {
   }
 
   private setUser(user: User) {
-    //this.stopRefreshTokenTimer();
-    //this.startRefreshTokenTimer(user.jwt);
+    this.stopRefreshTokenTimer();
+    this.startRefreshTokenTimer(user.jwt);
     localStorage.setItem(environment.userKey, JSON.stringify(user));
     this.userSource.next(user);
 
     this.sharedService.displayingExpiringSessionModal = false;
     this.checkUserIdleTimout();
   }
-  /*
+
   private startRefreshTokenTimer(jwt: string) {
-    const decodedToken: any = jwt_decode(jwt);
+    const decodedToken: any = jwtDecode(jwt);
     // expires in seconds
     const expires = new Date(decodedToken.exp * 1000);
     // 30 seconds before the expiration
@@ -199,5 +200,4 @@ export class AccountService {
   private stopRefreshTokenTimer() {
     clearTimeout(this.refreshTokenTimeout);
   }
-   */
 }

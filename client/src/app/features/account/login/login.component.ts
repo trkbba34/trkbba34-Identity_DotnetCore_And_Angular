@@ -28,7 +28,7 @@ import { SharedService } from '../../../core/services/shared.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
   @ViewChild('googleButton', { static: true }) googleButton: ElementRef =
     new ElementRef({});
   loginForm: FormGroup = new FormGroup({});

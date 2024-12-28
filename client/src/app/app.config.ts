@@ -6,27 +6,25 @@ import {
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import {
+  JwtInterceptor,
+} from './core/interceptors/jwt.interceptor';
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    //provideAnimationsAsync(),
-    provideHttpClient(
-      withInterceptors([
-        /*errorInterceptor, laodingInterceptor, authInterceptor*/
-      ])
-    ),
-    /*
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializeApp,
-      multi: true,
-      deps: [InitService],
-    },
-    */
+
+    provideHttpClient(withInterceptorsFromDi()),
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+
     BsModalService,
     {
       provide: APP_INITIALIZER,

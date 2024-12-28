@@ -44,7 +44,7 @@ namespace Api.Controllers
 
 
         [Authorize]
-        [HttpPost("refresh-token")]
+        [HttpGet("refresh-token")]
         public async Task<ActionResult<UserDto>> RefereshToken()
         {
             /*
@@ -62,7 +62,6 @@ namespace Api.Controllers
             return Unauthorized("Invalid or expired token, please try to login");*/
         }
 
-        /*
         [Authorize]
         [HttpGet("refresh-page")]
         public async Task<ActionResult<UserDto>> RefreshPage()
@@ -75,7 +74,6 @@ namespace Api.Controllers
             }
             return await CreateApplicationUserDto(user);
         }
-        */
 
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto model)
