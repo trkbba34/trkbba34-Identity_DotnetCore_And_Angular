@@ -14,17 +14,18 @@ import {
   Validators,
 } from '@angular/forms';
 import { AccountService } from '../../../core/services/account.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { DOCUMENT, NgIf } from '@angular/common';
 import { take } from 'rxjs';
 import { User } from '../../../shared/models/account/user';
 import { ValidationMessagesComponent } from '../../../shared/components/errors/validation-messages/validation-messages.component';
 import { SharedService } from '../../../core/services/shared.service';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, ValidationMessagesComponent],
+  imports: [ReactiveFormsModule, NgIf, ValidationMessagesComponent, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -151,8 +152,7 @@ export class LoginComponent implements OnInit {
     (window as any).onGoogleLibraryLoad = () => {
       // @ts-ignore
       google.accounts.id.initialize({
-        client_id:
-          '473473414260-dvfr4pp0jaipd3h86i283q3te3c6kp8m.apps.googleusercontent.com',
+        client_id: environment.googleClientId,
         callback: this.googleCallBack.bind(this),
         auto_select: false,
         cancel_on_tap_outside: true,
@@ -166,7 +166,6 @@ export class LoginComponent implements OnInit {
       });
     };
   }
-
 
   private async googleCallBack(response: CredentialResponse) {
     const decodedToken: any = jwt_decode(response.credential);

@@ -165,14 +165,6 @@ export class AccountService {
       next: (user: User | null) => {
         // the user is logged in
         if (user) {
-          // if not currently dipsplaying expiring session modal
-          if (!this.sharedService.displayingExpiringSessionModal) {
-            this.timeoutId = setTimeout(() => {
-              this.sharedService.displayingExpiringSessionModal = true;
-              this.sharedService.openExpiringSessionCountdown();
-              // in 10 minutes of user incativity
-            }, 10 * 60 * 1000);
-          }
         }
       },
     });
@@ -184,7 +176,6 @@ export class AccountService {
     localStorage.setItem(environment.userKey, JSON.stringify(user));
     this.userSource.next(user);
 
-    this.sharedService.displayingExpiringSessionModal = false;
     this.checkUserIdleTimout();
   }
 

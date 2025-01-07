@@ -7,9 +7,7 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import {
-  JwtInterceptor,
-} from './core/interceptors/jwt.interceptor';
+import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import {
   HTTP_INTERCEPTORS,
   provideHttpClient,
@@ -18,12 +16,22 @@ import {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
 
     provideHttpClient(withInterceptorsFromDi()),
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+
+    /*
+    {
+      provide: APP_INITIALIZER,useFactory: initializeFacebookSdk,deps: [FacebookService],
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true
+    },
+    MessageService
+    */
 
     BsModalService,
     {

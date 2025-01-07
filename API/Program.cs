@@ -19,7 +19,7 @@ builder.Services.AddDbContext<StoreContext>(opt =>
 
 // be able to inject JWTService class inside our Controllers
 builder.Services.AddScoped<JWTService>();
-//builder.Services.AddScoped<EmailService>();
+builder.Services.AddScoped<EmailService>();
 //builder.Services.AddScoped<ContextSeedService>();
 
 

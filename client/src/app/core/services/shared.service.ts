@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { NotificationComponent } from '../../shared/components/modals/notification/notification.component';
-import { ExpiringSessionCountdownComponent } from '../../shared/components/modals/expiring-session-countdown/expiring-session-countdown.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SharedService {
   bsModalRef?: BsModalRef;
-  displayingExpiringSessionModal = false;
 
   constructor(private modalService: BsModalService) {}
 
@@ -26,17 +24,4 @@ export class SharedService {
       initalState
     );
   }
-
-  openExpiringSessionCountdown = async () => {
-    const config: ModalOptions = {
-      backdrop: 'static',
-      keyboard: false,
-      ignoreBackdropClick: true,
-    };
-
-    this.bsModalRef = this.modalService.show(
-      ExpiringSessionCountdownComponent,
-      config
-    );
-  };
 }

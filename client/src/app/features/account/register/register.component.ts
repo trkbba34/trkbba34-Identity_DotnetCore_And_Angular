@@ -8,14 +8,13 @@ import {
 } from '@angular/core';
 import { ValidationMessagesComponent } from '../../../shared/components/errors/validation-messages/validation-messages.component';
 import { AccountService } from '../../../core/services/account.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { DOCUMENT, NgIf } from '@angular/common';
 import { User } from '../../../shared/models/account/user';
 import { take } from 'rxjs';
 import {
   FormBuilder,
   FormGroup,
-  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -24,16 +23,13 @@ import { SharedService } from '../../../core/services/shared.service';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ValidationMessagesComponent, NgIf, ReactiveFormsModule],
+  imports: [ValidationMessagesComponent, NgIf, ReactiveFormsModule, RouterLink],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
 export class RegisterComponent implements OnInit {
-  /*
   @ViewChild('googleButton', { static: true }) googleButton: ElementRef =
     new ElementRef({});
-  */
-
   registerForm: FormGroup = new FormGroup({});
   submitted = false;
   errorMessages: string[] = [];
@@ -43,7 +39,6 @@ export class RegisterComponent implements OnInit {
     private sharedService: SharedService,
     private formBuilder: FormBuilder,
     private router: Router,
-
     private _renderer2: Renderer2,
     @Inject(DOCUMENT) private _document: Document
   ) {
@@ -153,8 +148,7 @@ export class RegisterComponent implements OnInit {
     (window as any).onGoogleLibraryLoad = () => {
       // @ts-ignore
       google.accounts.id.initialize({
-        client_id:
-          '473473414260-dvfr4pp0jaipd3h86i283q3te3c6kp8m.apps.googleusercontent.com',
+        client_id: environment.googleClientId,
         callback: this.googleCallBack.bind(this),
         auto_select: false,
         cancel_on_tap_outside: true,
@@ -170,6 +164,7 @@ export class RegisterComponent implements OnInit {
   }
 
   private async googleCallBack(response: CredentialResponse) {
+    console.log(response);
     const decodedToken: any = jwt_decode(response.credential);
     this.router.navigateByUrl(
       `/account/register/third-party/google?access_token=${response.credential}&userId=${decodedToken.sub}`

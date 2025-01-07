@@ -18,7 +18,7 @@ namespace Api.Controllers
         private readonly JWTService _jwtService;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
-        //private readonly EmailService _emailService;
+        private readonly EmailService _emailService;
         private readonly StoreContext _context;
         private readonly IConfiguration _config;
         private readonly HttpClient _facebookHttpClient;
@@ -26,14 +26,14 @@ namespace Api.Controllers
         public AccountController(JWTService jwtService,
             SignInManager<AppUser> signInManager,
             UserManager<AppUser> userManager,
-            //EmailService emailService,
+            EmailService emailService,
             StoreContext context,
             IConfiguration config)
         {
             _jwtService = jwtService;
             _signInManager = signInManager;
             _userManager = userManager;
-            //_emailService = emailService;
+            _emailService = emailService;
             _context = context;
             _config = config;
             _facebookHttpClient = new HttpClient

@@ -1,18 +1,25 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  HostListener,
+  OnInit,
+} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NavbarComponent } from './layout/navbar/navbar.component';
+import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { AccountService } from './core/services/account.service';
 import { SharedService } from './core/services/shared.service';
-import { take } from 'rxjs';
-import { User } from './shared/models/account/user';
+
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, FooterComponent],
+  imports: [RouterOutlet, FontAwesomeModule, HeaderComponent, CommonModule,FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppComponent implements OnInit {
   constructor(
@@ -24,19 +31,6 @@ export class AppComponent implements OnInit {
     this.refreshUser();
   }
 
-  @HostListener('window:keydown')
-  @HostListener('window:mousedown')
-  checkUserActivity() {
-    this.accountService.user$.pipe(take(1)).subscribe({
-      next: (user: User | null) => {
-        if (user) {
-          clearTimeout(this.accountService.timeoutId);
-          this.accountService.checkUserIdleTimout();
-        }
-      },
-    });
-  }
-
   private refreshUser() {
     const jwt = this.accountService.getJWT();
     if (jwt) {
@@ -44,14 +38,11 @@ export class AppComponent implements OnInit {
         next: (_) => {},
         error: (error) => {
           this.accountService.logout();
-
-          if (error.status === 401) {
-            this.sharedService.showNotification(
-              false,
-              'Account blocked',
-              error.error
-            );
-          }
+          this.sharedService.showNotification(
+            false,
+            'Account blocked',
+            error.error
+          );
         },
       });
     } else {
