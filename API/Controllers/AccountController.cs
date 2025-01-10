@@ -1,13 +1,15 @@
 using System.Security.Claims;
+using System.Text;
 using API.DTOs.Account;
 using Core.Entities;
+using Core.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
-
 
 namespace Api.Controllers
 {
@@ -15,22 +17,22 @@ namespace Api.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly JWTService _jwtService;
+        private readonly ITokenService _tokenService;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
         private readonly EmailService _emailService;
-        private readonly StoreContext _context;
         private readonly IConfiguration _config;
+        private readonly StoreContext _context;
         private readonly HttpClient _facebookHttpClient;
 
-        public AccountController(JWTService jwtService,
+        public AccountController(ITokenService tokenService,
             SignInManager<AppUser> signInManager,
             UserManager<AppUser> userManager,
             EmailService emailService,
             StoreContext context,
             IConfiguration config)
         {
-            _jwtService = jwtService;
+            _tokenService = tokenService;
             _signInManager = signInManager;
             _userManager = userManager;
             _emailService = emailService;
@@ -42,7 +44,6 @@ namespace Api.Controllers
             };
         }
 
-
         [Authorize]
         [HttpGet("refresh-token")]
         public async Task<ActionResult<UserDto>> RefereshToken()
@@ -52,11 +53,14 @@ namespace Api.Controllers
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             if (IsValidRefreshTokenAsync(userId, token).GetAwaiter().GetResult())
-            {*/
+            {
+            */
+
             //var user = await _userManager.FindByIdAsync(userId);
             var user = await _userManager.FindByNameAsync(User.FindFirst(ClaimTypes.Email)?.Value);
             if (user == null) return Unauthorized("Invalid or expired token, please try to login");
             return await CreateApplicationUserDto(user);
+
             /*}
 
             return Unauthorized("Invalid or expired token, please try to login");*/
@@ -176,8 +180,6 @@ namespace Api.Controllers
                 LastName = model.LastName.ToLower(),
                 UserName = model.Email.ToLower(),
                 Email = model.Email.ToLower(),
-
-                EmailConfirmed = true
             };
 
             // creates a user inside our AspNetUsers table inside our database
@@ -186,76 +188,20 @@ namespace Api.Controllers
 
             //await _userManager.AddToRoleAsync(userToAdd, SD.PlayerRole);
 
-
             try
             {
-                //if (await SendConfirmEMailAsync(userToAdd))
-                //{
-                return Ok(new JsonResult(new { title = "Account Created", message = "Your account has been created, please confrim your email address" }));
-                //}
+                if (await SendConfirmEMailAsync(userToAdd))
+                {
+                    return Ok(new JsonResult(new { title = "Account Created", message = "Your account has been created, please confrim your email address" }));
+                }
 
-                //return BadRequest("Failed to send email. Please contact admin");
+                return BadRequest("Failed to send email. Please contact admin");
             }
             catch (Exception)
             {
                 return BadRequest("Failed to send email. Please contact admin");
             }
 
-        }
-
-        /*
-        [HttpPost("register-with-third-party")]
-        public async Task<ActionResult<UserDto>> RegisterWithThirdParty(RegisterWithExternal model)
-        {
-            if (model.Provider.Equals(SD.Facebook))
-            {
-                try
-                {
-                    if (!FacebookValidatedAsync(model.AccessToken, model.UserId).GetAwaiter().GetResult())
-                    {
-                        return Unauthorized("Unable to register with facebook");
-                    }
-                }
-                catch (Exception)
-                {
-                    return Unauthorized("Unable to register with facebook");
-                }
-            }
-            else if (model.Provider.Equals(SD.Google))
-            {
-                try
-                {
-                    if (!GoogleValidatedAsync(model.AccessToken, model.UserId).GetAwaiter().GetResult())
-                    {
-                        return Unauthorized("Unable to register with google");
-                    }
-                }
-                catch (Exception)
-                {
-                    return Unauthorized("Unable to register with google");
-                }
-            }
-            else
-            {
-                return BadRequest("Invalid provider");
-            }
-
-            var user = await _userManager.FindByNameAsync(model.UserId);
-            if (user != null) return BadRequest(string.Format("You have an account already. Please login with your {0}", model.Provider));
-
-            var userToAdd = new AppUser
-            {
-                FirstName = model.FirstName.ToLower(),
-                LastName = model.LastName.ToLower(),
-                UserName = model.UserId,
-                Provider = model.Provider,
-            };
-
-            var result = await _userManager.CreateAsync(userToAdd);
-            if (!result.Succeeded) return BadRequest(result.Errors);
-            await _userManager.AddToRoleAsync(userToAdd, SD.PlayerRole);
-
-            return await CreateApplicationUserDto(userToAdd);
         }
 
         [HttpPut("confirm-email")]
@@ -359,6 +305,61 @@ namespace Api.Controllers
                 return BadRequest("Invalid token. Please try again");
             }
         }
+
+        /*
+        [HttpPost("register-with-third-party")]
+        public async Task<ActionResult<UserDto>> RegisterWithThirdParty(RegisterWithExternal model)
+        {
+            if (model.Provider.Equals(SD.Facebook))
+            {
+                try
+                {
+                    if (!FacebookValidatedAsync(model.AccessToken, model.UserId).GetAwaiter().GetResult())
+                    {
+                        return Unauthorized("Unable to register with facebook");
+                    }
+                }
+                catch (Exception)
+                {
+                    return Unauthorized("Unable to register with facebook");
+                }
+            }
+            else if (model.Provider.Equals(SD.Google))
+            {
+                try
+                {
+                    if (!GoogleValidatedAsync(model.AccessToken, model.UserId).GetAwaiter().GetResult())
+                    {
+                        return Unauthorized("Unable to register with google");
+                    }
+                }
+                catch (Exception)
+                {
+                    return Unauthorized("Unable to register with google");
+                }
+            }
+            else
+            {
+                return BadRequest("Invalid provider");
+            }
+
+            var user = await _userManager.FindByNameAsync(model.UserId);
+            if (user != null) return BadRequest(string.Format("You have an account already. Please login with your {0}", model.Provider));
+
+            var userToAdd = new AppUser
+            {
+                FirstName = model.FirstName.ToLower(),
+                LastName = model.LastName.ToLower(),
+                UserName = model.UserId,
+                Provider = model.Provider,
+            };
+
+            var result = await _userManager.CreateAsync(userToAdd);
+            if (!result.Succeeded) return BadRequest(result.Errors);
+            await _userManager.AddToRoleAsync(userToAdd, SD.PlayerRole);
+
+            return await CreateApplicationUserDto(userToAdd);
+        }
         */
         #region Private Helper Methods
 
@@ -369,7 +370,7 @@ namespace Api.Controllers
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                JWT = await _jwtService.CreateJWT(user),
+                JWT = await _tokenService.CreateToken(user),
             };
         }
 
@@ -378,7 +379,6 @@ namespace Api.Controllers
             return await _userManager.Users.AnyAsync(x => x.Email == email.ToLower());
         }
 
-        /*
         private async Task<bool> SendConfirmEMailAsync(AppUser user)
         {
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -396,6 +396,7 @@ namespace Api.Controllers
             return await _emailService.SendEmailAsync(emailSend);
         }
 
+
         private async Task<bool> SendForgotUsernameOrPasswordEmail(AppUser user)
         {
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
@@ -403,17 +404,18 @@ namespace Api.Controllers
             var url = $"{_config["JWT:ClientUrl"]}/{_config["Email:ResetPasswordPath"]}?token={token}&email={user.Email}";
 
             var body = $"<p>Hello: {user.FirstName} {user.LastName}</p>" +
-               $"<p>Username: {user.UserName}.</p>" +
-               "<p>In order to reset your password, please click on the following link.</p>" +
-               $"<p><a href=\"{url}\">Click here</a></p>" +
-               "<p>Thank you,</p>" +
-               $"<br>{_config["Email:ApplicationName"]}";
+                $"<p>Username: {user.UserName}.</p>" +
+                "<p>In order to reset your password, please click on the following link.</p>" +
+                $"<p><a href=\"{url}\">Click here</a></p>" +
+                "<p>Thank you,</p>" +
+                $"<br>{_config["Email:ApplicationName"]}";
 
             var emailSend = new EmailSendDto(user.Email, "Forgot username or password", body);
 
             return await _emailService.SendEmailAsync(emailSend);
         }
 
+        /*
         private async Task<bool> FacebookValidatedAsync(string accessToken, string userId)
         {
             var facebookKeys = _config["Facebook:AppId"] + "|" + _config["Facebook:AppSecret"];
@@ -488,7 +490,6 @@ namespace Api.Controllers
 
             Response.Cookies.Append("identityAppRefreshToken", refreshToken.Token, cookieOptions);
         }
-        
 
         public async Task<bool> IsValidRefreshTokenAsync(string userId, string token)
         {
@@ -502,6 +503,7 @@ namespace Api.Controllers
             return true;
         }
         */
+
         #endregion
     }
 }

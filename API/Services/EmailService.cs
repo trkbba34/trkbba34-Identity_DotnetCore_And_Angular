@@ -10,7 +10,7 @@ public class EmailService(IConfiguration config)
 
     public async Task<bool> SendEmailAsync(EmailSendDto emailSend)
     {
-        MailjetClient client = new MailjetClient(_config["MailJet:ApiKey"], _config["MailJet:SecretKey"]);
+        MailjetClient client = new(_config["MailJet:ApiKey"], _config["MailJet:SecretKey"]);
 
         var email = new TransactionalEmailBuilder()
             .WithFrom(new SendContact(_config["Email:From"], _config["Email:ApplicationName"]))

@@ -11,16 +11,14 @@ export const routes: Routes = [
     path: '',
     runGuardsAndResolvers: 'always',
     canActivate: [AuthorizationGuard],
-    children: [
-      { path: 'play', component: PlayComponent },
-    ]
+    children: [{ path: 'play', component: PlayComponent }],
   },
-
-  { path: 'not-found', component: NotFoundComponent },
   {
     path: 'account',
     loadChildren: () =>
       import('./features/account/routes').then((r) => r.accountRoutes),
   },
+
+  { path: 'not-found', component: NotFoundComponent },
   { path: '**', component: NotFoundComponent, pathMatch: 'full' },
 ];

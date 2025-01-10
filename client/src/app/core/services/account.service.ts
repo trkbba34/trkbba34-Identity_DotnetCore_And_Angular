@@ -8,6 +8,8 @@ import { SharedService } from './shared.service';
 import { environment } from '../../../environments/environment.development';
 import { Login } from '../../shared/models/account/login';
 import { Register } from '../../shared/models/account/register';
+import { ConfirmEmail } from '../../shared/models/account/confirmEmail';
+import { ResetPassword } from '../../shared/models/account/resetPassword';
 
 @Injectable({
   providedIn: 'root',
@@ -111,6 +113,28 @@ export class AccountService {
     return this.http.post(`${environment.apiUrl}account/register`, model);
   }
 
+  confirmEmail(model: ConfirmEmail) {
+    return this.http.put(`${environment.apiUrl}account/confirm-email`, model);
+  }
+
+  resendEmailConfirmationLink(email: string) {
+    return this.http.post(
+      `${environment.apiUrl}account/resend-email-confirmation-link/${email}`,
+      {}
+    );
+  }
+
+  forgotUsernameOrPassword(email: string) {
+    return this.http.post(
+      `${environment.apiUrl}account/forgot-username-or-password/${email}`,
+      {}
+    );
+  }
+
+  resetPassword(model: ResetPassword) {
+    return this.http.put(`${environment.apiUrl}account/reset-password`, model);
+  }
+
   /*
   registerWithThirdParty(model: RegisterWithExternal) {
     return this.http
@@ -125,28 +149,6 @@ export class AccountService {
           }
         })
       );
-  }
-
-  confirmEmail(model: ConfirmEmail) {
-    return this.http.put(`${environment.appUrl}account/confirm-email`, model);
-  }
-
-  resendEmailConfirmationLink(email: string) {
-    return this.http.post(
-      `${environment.appUrl}account/resend-email-confirmation-link/${email}`,
-      {}
-    );
-  }
-
-  forgotUsernameOrPassword(email: string) {
-    return this.http.post(
-      `${environment.appUrl}account/forgot-username-or-password/${email}`,
-      {}
-    );
-  }
-
-  resetPassword(model: ResetPassword) {
-    return this.http.put(`${environment.appUrl}account/reset-password`, model);
   }
   */
 

@@ -1,5 +1,6 @@
 using System.Text;
 using Core.Entities;
+using Core.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -18,8 +19,9 @@ builder.Services.AddDbContext<StoreContext>(opt =>
 });
 
 // be able to inject JWTService class inside our Controllers
-builder.Services.AddScoped<JWTService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<EmailService>();
+
 //builder.Services.AddScoped<ContextSeedService>();
 
 
@@ -51,7 +53,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             // validate the token based on the key we have provided inside appsettings.development.json JWT:Key
             ValidateIssuerSigningKey = true,
             // the issuer singning key based on JWT:Key
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"])),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:TokenKey"])),
             // the issuer which in here is the api project url we are using
             ValidIssuer = builder.Configuration["JWT:Issuer"],
             // validate the issuer (who ever is issuing the JWT)
