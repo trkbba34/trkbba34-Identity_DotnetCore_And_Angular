@@ -5,6 +5,18 @@ ng serve
 
 ng g environments
 
+# SSL:
+
+cd ssl
+mkcert localhost
+add this to anular.json after "serve": "builder": ...
+
+"options": {
+"sslCert": "ssl/localhost.pem",
+"sslKey": "ssl/localhost-key.pem",
+"ssl": true
+},
+
 # Tuto:
 
 c: component
@@ -17,6 +29,6 @@ interceptor
 --skip-test to skip tests
 
 subscribe (fih next + error)
-pipe 
+pipe
 map
 take

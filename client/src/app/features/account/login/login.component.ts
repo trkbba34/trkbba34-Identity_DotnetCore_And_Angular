@@ -9,7 +9,6 @@ import {
 import {
   FormBuilder,
   FormGroup,
-  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -20,7 +19,11 @@ import { take } from 'rxjs';
 import { User } from '../../../shared/models/account/user';
 import { ValidationMessagesComponent } from '../../../shared/components/errors/validation-messages/validation-messages.component';
 import { SharedService } from '../../../core/services/shared.service';
+import { LoginWithExternal } from '../../../shared/models/account/loginWithExternal';
 import { environment } from '../../../../environments/environment.development';
+import { CredentialResponse } from 'google-one-tap';
+import { jwtDecode } from 'jwt-decode';
+declare const FB: any;
 
 @Component({
   selector: 'app-login',
@@ -64,7 +67,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.initiazeGoogleButton();
+    this.initiazeGoogleButton();
     this.initializeForm();
   }
 
@@ -107,7 +110,6 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  /*
   loginWithFacebook() {
     FB.login(async (fbResult: any) => {
       if (fbResult.authResponse) {
@@ -139,7 +141,6 @@ export class LoginComponent implements OnInit {
       }
     });
   }
-  */
 
   resendEmailConfirmationLink() {
     this.router.navigateByUrl(
@@ -147,7 +148,6 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  /*
   private initiazeGoogleButton() {
     (window as any).onGoogleLibraryLoad = () => {
       // @ts-ignore
@@ -168,7 +168,7 @@ export class LoginComponent implements OnInit {
   }
 
   private async googleCallBack(response: CredentialResponse) {
-    const decodedToken: any = jwt_decode(response.credential);
+    const decodedToken: any = jwtDecode(response.credential);
     this.accountService
       .loginWithThirdParty(
         new LoginWithExternal(response.credential, decodedToken.sub, 'google')
@@ -186,5 +186,4 @@ export class LoginComponent implements OnInit {
         },
       });
   }
-  */
 }

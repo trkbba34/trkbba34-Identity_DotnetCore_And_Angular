@@ -2,6 +2,9 @@ export const environment = {
   production: true,
   apiUrl: 'api/',
   userKey: 'identity',
+  googleClientId:
+    '2066032109-mfsf1cs7a0ki15romdlc2t1jggj2emer.apps.googleusercontent.com',
+
   /*
   hubUrl: 'hub/notifications',
   stripePublicKey:

@@ -19,6 +19,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { SharedService } from '../../../core/services/shared.service';
+import { environment } from '../../../../environments/environment.development';
+import { CredentialResponse } from 'google-one-tap';
+import { jwtDecode } from 'jwt-decode';
+declare const FB: any;
 
 @Component({
   selector: 'app-register',
@@ -52,7 +56,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.initiazeGoogleButton();
+    this.initiazeGoogleButton();
     this.initializeForm();
   }
 
@@ -125,7 +129,6 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  /*
   registerWithFacebook() {
     FB.login(async (fbResult: any) => {
       if (fbResult.authResponse) {
@@ -164,11 +167,9 @@ export class RegisterComponent implements OnInit {
   }
 
   private async googleCallBack(response: CredentialResponse) {
-    console.log(response);
-    const decodedToken: any = jwt_decode(response.credential);
+    const decodedToken: any = jwtDecode(response.credential);
     this.router.navigateByUrl(
       `/account/register/third-party/google?access_token=${response.credential}&userId=${decodedToken.sub}`
     );
   }
-  */
 }

@@ -1,8 +1,10 @@
 using System.Security.Claims;
 using System.Text;
+using API;
 using API.DTOs.Account;
 using Core.Entities;
 using Core.Interfaces;
+using Google.Apis.Auth;
 using Infrastructure.Data;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -22,8 +24,8 @@ namespace Api.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly EmailService _emailService;
         private readonly IConfiguration _config;
-        private readonly StoreContext _context;
         private readonly HttpClient _facebookHttpClient;
+        private readonly StoreContext _context;
 
         public AccountController(ITokenService tokenService,
             SignInManager<AppUser> signInManager,
@@ -122,7 +124,6 @@ namespace Api.Controllers
             return await CreateApplicationUserDto(user);
         }
 
-        /*
         [HttpPost("login-with-third-party")]
         public async Task<ActionResult<UserDto>> LoginWithThirdParty(LoginWithExternalDto model)
         {
@@ -164,7 +165,6 @@ namespace Api.Controllers
 
             return await CreateApplicationUserDto(user);
         }
-        */
 
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDto model)
@@ -306,7 +306,7 @@ namespace Api.Controllers
             }
         }
 
-        /*
+
         [HttpPost("register-with-third-party")]
         public async Task<ActionResult<UserDto>> RegisterWithThirdParty(RegisterWithExternal model)
         {
@@ -356,11 +356,11 @@ namespace Api.Controllers
 
             var result = await _userManager.CreateAsync(userToAdd);
             if (!result.Succeeded) return BadRequest(result.Errors);
-            await _userManager.AddToRoleAsync(userToAdd, SD.PlayerRole);
+            //await _userManager.AddToRoleAsync(userToAdd, SD.PlayerRole);
 
             return await CreateApplicationUserDto(userToAdd);
         }
-        */
+
         #region Private Helper Methods
 
         private async Task<UserDto> CreateApplicationUserDto(AppUser user)
@@ -415,7 +415,6 @@ namespace Api.Controllers
             return await _emailService.SendEmailAsync(emailSend);
         }
 
-        /*
         private async Task<bool> FacebookValidatedAsync(string accessToken, string userId)
         {
             var facebookKeys = _config["Facebook:AppId"] + "|" + _config["Facebook:AppSecret"];
@@ -463,6 +462,7 @@ namespace Api.Controllers
             return true;
         }
 
+        /*
         private async Task SaveRefreshTokenAsync(AppUser user)
         {
             var refreshToken = _jwtService.CreateRefreshToken(user);

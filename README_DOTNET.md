@@ -1,3 +1,8 @@
+# Api architecture:
+API -> Infrastructure -> Core 
+    -> Infrastructure -> DB + stripe + redis + ...
+API ..> Core
+
 # create project:
 
 dotnet new sln
