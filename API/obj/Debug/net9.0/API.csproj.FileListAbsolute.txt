@@ -163,3 +163,16 @@ C:\Users\TRK\source\repos\identity\API\bin\Debug\net9.0\Google.Apis.Auth.dll
 C:\Users\TRK\source\repos\identity\API\bin\Debug\net9.0\Google.Apis.Core.dll
 C:\Users\TRK\source\repos\identity\API\bin\Debug\net9.0\System.Management.dll
 C:\Users\TRK\source\repos\identity\API\bin\Debug\net9.0\runtimes\win\lib\net7.0\System.Management.dll
+C:\Users\TRK\source\repos\identity\API\bin\Debug\net9.0\API.staticwebassets.runtime.json
+C:\Users\TRK\source\repos\identity\API\obj\Debug\net9.0\compressed\zzyd6wgwl5-igo2ainmls.gz
+C:\Users\TRK\source\repos\identity\API\obj\Debug\net9.0\compressed\tg6cunww6c-mx2jgatyqb.gz
+C:\Users\TRK\source\repos\identity\API\obj\Debug\net9.0\compressed\dpx7qlsn9e-0exjop8lx8.gz
+C:\Users\TRK\source\repos\identity\API\obj\Debug\net9.0\compressed\f6iq5usdza-lhldmtp2ku.gz
+C:\Users\TRK\source\repos\identity\API\obj\Debug\net9.0\compressed\y71hz6k7bq-32rwpzakk8.gz
+C:\Users\TRK\source\repos\identity\API\obj\Debug\net9.0\compressed\qw1cn7z8dw-qtyrnrlnzt.gz
+C:\Users\TRK\source\repos\identity\API\obj\Debug\net9.0\compressed\p8vixgs3gh-vagikyz9qx.gz
+C:\Users\TRK\source\repos\identity\API\obj\Debug\net9.0\compressed\vgef6z1v60-ox4jwp79i4.gz
+C:\Users\TRK\source\repos\identity\API\obj\Debug\net9.0\compressed\vc9hkeazjs-s0rm0ttg6x.gz
+C:\Users\TRK\source\repos\identity\API\obj\Debug\net9.0\compressed\neu04fd7z4-dosqy3kf6t.gz
+C:\Users\TRK\source\repos\identity\API\obj\Debug\net9.0\compressed\59j04n7asp-39tegmrjtp.gz
+C:\Users\TRK\source\repos\identity\API\obj\Debug\net9.0\compressed\69y5ssq724-p0vbcz9dh8.gz

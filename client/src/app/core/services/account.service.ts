@@ -5,13 +5,13 @@ import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { User } from '../../shared/models/account/user';
 import { SharedService } from './shared.service';
-import { environment } from '../../../environments/environment.development';
 import { Login } from '../../shared/models/account/login';
 import { Register } from '../../shared/models/account/register';
 import { ConfirmEmail } from '../../shared/models/account/confirmEmail';
 import { ResetPassword } from '../../shared/models/account/resetPassword';
 import { RegisterWithExternal } from '../../shared/models/account/registerWithExternal';
 import { LoginWithExternal } from '../../shared/models/account/loginWithExternal';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',

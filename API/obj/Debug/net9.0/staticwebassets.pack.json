@@ -1,0 +1,101 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\TRK\\source\\repos\\identity\\API\\wwwroot\\3rdpartylicenses.txt",
+      "PackagePath": "staticwebassets\\3rdpartylicenses.txt"
+    },
+    {
+      "Id": "C:\\Users\\TRK\\source\\repos\\identity\\API\\wwwroot\\browser\\assets\\images\\5639294.jpg",
+      "PackagePath": "staticwebassets\\browser\\assets\\images\\5639294.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TRK\\source\\repos\\identity\\API\\wwwroot\\browser\\assets\\images\\locker.png",
+      "PackagePath": "staticwebassets\\browser\\assets\\images\\locker.png"
+    },
+    {
+      "Id": "C:\\Users\\TRK\\source\\repos\\identity\\API\\wwwroot\\browser\\assets\\images\\logo.png",
+      "PackagePath": "staticwebassets\\browser\\assets\\images\\logo.png"
+    },
+    {
+      "Id": "C:\\Users\\TRK\\source\\repos\\identity\\API\\wwwroot\\browser\\assets\\images\\matech-logo.svg",
+      "PackagePath": "staticwebassets\\browser\\assets\\images\\matech-logo.svg"
+    },
+    {
+      "Id": "C:\\Users\\TRK\\source\\repos\\identity\\API\\wwwroot\\browser\\chunk-ANDSMGIQ.js",
+      "PackagePath": "staticwebassets\\browser\\chunk-ANDSMGIQ.js"
+    },
+    {
+      "Id": "C:\\Users\\TRK\\source\\repos\\identity\\API\\wwwroot\\browser\\chunk-GLEX32WT.js",
+      "PackagePath": "staticwebassets\\browser\\chunk-GLEX32WT.js"
+    },
+    {
+      "Id": "C:\\Users\\TRK\\source\\repos\\identity\\API\\wwwroot\\browser\\chunk-JJZ6ZB3A.js",
+      "PackagePath": "staticwebassets\\browser\\chunk-JJZ6ZB3A.js"
+    },
+    {
+      "Id": "C:\\Users\\TRK\\source\\repos\\identity\\API\\wwwroot\\browser\\chunk-VWK2SJE6.js",
+      "PackagePath": "staticwebassets\\browser\\chunk-VWK2SJE6.js"
+    },
+    {
+      "Id": "C:\\Users\\TRK\\source\\repos\\identity\\API\\wwwroot\\browser\\favicon.ico",
+      "PackagePath": "staticwebassets\\browser\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\TRK\\source\\repos\\identity\\API\\wwwroot\\browser\\index.html",
+      "PackagePath": "staticwebassets\\browser\\index.html"
+    },
+    {
+      "Id": "C:\\Users\\TRK\\source\\repos\\identity\\API\\wwwroot\\browser\\main-JOQ3F7KP.js",
+      "PackagePath": "staticwebassets\\browser\\main-JOQ3F7KP.js"
+    },
+    {
+      "Id": "C:\\Users\\TRK\\source\\repos\\identity\\API\\wwwroot\\browser\\media\\fontawesome-webfont-3KIJVIEY.svg",
+      "PackagePath": "staticwebassets\\browser\\media\\fontawesome-webfont-3KIJVIEY.svg"
+    },
+    {
+      "Id": "C:\\Users\\TRK\\source\\repos\\identity\\API\\wwwroot\\browser\\media\\fontawesome-webfont-5GKVPAEF.woff2",
+      "PackagePath": "staticwebassets\\browser\\media\\fontawesome-webfont-5GKVPAEF.woff2"
+    },
+    {
+      "Id": "C:\\Users\\TRK\\source\\repos\\identity\\API\\wwwroot\\browser\\media\\fontawesome-webfont-FMJ3VJ65.eot",
+      "PackagePath": "staticwebassets\\browser\\media\\fontawesome-webfont-FMJ3VJ65.eot"
+    },
+    {
+      "Id": "C:\\Users\\TRK\\source\\repos\\identity\\API\\wwwroot\\browser\\media\\fontawesome-webfont-RJ6LE7IU.ttf",
+      "PackagePath": "staticwebassets\\browser\\media\\fontawesome-webfont-RJ6LE7IU.ttf"
+    },
+    {
+      "Id": "C:\\Users\\TRK\\source\\repos\\identity\\API\\wwwroot\\browser\\media\\fontawesome-webfont-Z4ARLA73.woff",
+      "PackagePath": "staticwebassets\\browser\\media\\fontawesome-webfont-Z4ARLA73.woff"
+    },
+    {
+      "Id": "C:\\Users\\TRK\\source\\repos\\identity\\API\\wwwroot\\browser\\polyfills-FFHMD2TL.js",
+      "PackagePath": "staticwebassets\\browser\\polyfills-FFHMD2TL.js"
+    },
+    {
+      "Id": "C:\\Users\\TRK\\source\\repos\\identity\\API\\wwwroot\\browser\\styles-U54QSYAQ.css",
+      "PackagePath": "staticwebassets\\browser\\styles-U54QSYAQ.css"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.API.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.API.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.build.API.props",
+      "PackagePath": "build\\API.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildMultiTargeting.API.props",
+      "PackagePath": "buildMultiTargeting\\API.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildTransitive.API.props",
+      "PackagePath": "buildTransitive\\API.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
