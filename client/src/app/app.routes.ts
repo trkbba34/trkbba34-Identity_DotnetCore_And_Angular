@@ -11,7 +11,14 @@ export const routes: Routes = [
     path: '',
     runGuardsAndResolvers: 'always',
     canActivate: [AuthorizationGuard],
-    children: [{ path: 'play', component: PlayComponent }],
+    children: [
+      { path: 'play', component: PlayComponent },
+      {
+        path: 'admin',
+        loadChildren: () =>
+          import('./features/admin/routes').then((r) => r.adminRoutes),
+      },
+    ],
   },
   {
     path: 'account',

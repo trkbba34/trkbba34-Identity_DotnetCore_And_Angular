@@ -232,7 +232,7 @@ namespace Api.Controllers
         public async Task<IActionResult> ResendEMailConfirmationLink(string email)
         {
             if (string.IsNullOrEmpty(email)) return BadRequest("Invalid email");
-            AppUser? user = await _userManager.FindByEmailAsync(email);
+            AppUser user = await _userManager.FindByEmailAsync(email);
 
             if (user == null) return Unauthorized("This email address has not been registerd yet");
             if (user.EmailConfirmed == true) return BadRequest("Your email address was confirmed before. Please login to your account");
